@@ -9,6 +9,7 @@ module.exports = {
   logging: process.env.DB_LOGGING === 'true',
   entities: ['./src/entities/*.entity.ts'],
   migrations: ['./src/migrations/*.ts'],
+  seeds: ['src/seeds/*.ts'],
   cli: {
     entitiesDir: './src/entities',
     migrationsDir: './src/migrations',

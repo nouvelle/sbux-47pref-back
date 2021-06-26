@@ -13,11 +13,14 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
+    "controller": "nest g controller",
+    "service": "nest g service",
     "orm": "ts-node -r dotenv/config ./node_modules/typeorm/cli.js --config src/ormconfig.ts",
     "makeMigration": "npm run orm -- migration:generate -n",
     "createMigration": "npm run orm -- migration:create -n",
     "migrate": "npm run orm -- migration:run",
-    "rollback": "npm run orm -- migration:revert"
+    "rollback": "npm run orm -- migration:revert",
+    "seed": "ts-node -r dotenv/config ./node_modules/typeorm-seeding/dist/cli.js --configName src/ormconfig.ts seed"
   },
   "dependencies": {
     "@nestjs/common": "^7.6.15",
@@ -31,7 +34,8 @@
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.6",
     "swagger-ui-express": "^4.1.6",
-    "typeorm": "^0.2.34"
+    "typeorm": "^0.2.34",
+    "typeorm-seeding": "^1.6.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.6.0",
