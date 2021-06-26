@@ -20,6 +20,9 @@ export class CreatPostResponse {
   created_at: Date;
 
   @ApiProperty()
+  updated_at: Date;
+
+  @ApiProperty()
   image: string | null;
 
   @ApiProperty()

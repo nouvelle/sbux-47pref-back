@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Post } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Posts } from '../entities/posts.entity';
 import { Pref } from '../entities/pref.entity';
@@ -24,7 +24,11 @@ export class PostsService {
   }
 
   async createPosts(post: PostsInterface): Promise<Posts> {
-    const newPostData = { ...post, created_at: new Date() };
+    const newPostData = {
+      ...post,
+      created_at: new Date(),
+      updated_at: new Date(),
+    };
 
     const addPostData = new Posts();
 
@@ -46,5 +50,28 @@ export class PostsService {
     // データを保存
     const newPost = this.postsRepository.create(addPostData);
     return this.postsRepository.save(newPost);
+  }
+
+  async updatePosts(postId: number, post: PostsInterface): Promise<Posts> {
+    // posts テーブルから、IDが合致したデータを検索
+    const updatePost = await this.postsRepository.findOne(postId);
+
+    // body で渡されたデータを結合
+    Object.assign(updatePost, { updated_at: new Date() }, post);
+
+    // 店舗情報がある場合
+    if (post.store_id) {
+      // 店舗情報から所在地の都道府県を抽出
+      const prefStore = await this.storeRepository.find({
+        relations: ['pref'],
+        where: { id: post.store_id },
+      });
+      // 外部キーになっているカラムの設定
+      updatePost.pref = <any>{ id: prefStore[0].pref.id };
+      updatePost.store = <any>{ id: post.store_id };
+    }
+
+    // データを保存
+    return this.postsRepository.save(updatePost);
   }
 }

@@ -62,3 +62,39 @@ export class CreatePostDto {
   @ApiProperty()
   store_id?: number;
 }
+
+export class UpdatePostDto {
+  @IsString()
+  @IsOptional()
+  @ApiProperty()
+  image: string;
+
+  @IsString()
+  @IsOptional()
+  @ApiProperty()
+  comments: string;
+
+  @IsString()
+  @ApiProperty()
+  author: string;
+
+  @IsString()
+  @IsOptional()
+  @ApiProperty()
+  secretkey: string;
+
+  @IsString()
+  @IsOptional()
+  @ApiProperty()
+  snshandle: string;
+
+  @IsString()
+  @IsOptional()
+  @ApiProperty()
+  tag: string;
+
+  @IsNumber()
+  @IsOptional()
+  @ApiProperty()
+  store_id?: number;
+}

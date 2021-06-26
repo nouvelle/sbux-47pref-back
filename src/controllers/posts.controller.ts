@@ -1,8 +1,14 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
-import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
+import {
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { PostsService } from '../services/posts.service';
 import { Posts } from '../entities/posts.entity';
-import { PostsDto, CreatePostDto } from '../dto/posts-dto';
+import { PostsDto, CreatePostDto, UpdatePostDto } from '../dto/posts-dto';
 import { ErrorResponse, CreatPostResponse } from '../dto/response-dto';
 
 @ApiTags('posts')
@@ -68,5 +74,34 @@ export class PostsController {
   @Post()
   async create(@Body() createPostDto: CreatePostDto): Promise<Posts> {
     return this.postsService.createPosts(createPostDto);
+  }
+
+  // データ修正API
+  @ApiOperation({
+    summary: 'データ修正API',
+    description: '投稿ずみのデータを修正する',
+  })
+  @ApiResponse({
+    status: 201,
+    description: '修正に成功した時',
+    type: CreatPostResponse,
+  })
+  @ApiResponse({
+    status: 400,
+    description: '必須項目がクライアントから送られてきていない時',
+    type: ErrorResponse,
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'サーバ側でサービスが提供できない場合',
+    type: ErrorResponse,
+  })
+  @ApiParam({ name: 'postId', description: '投稿データID', type: 'number' })
+  @Put(':postId')
+  async update(
+    @Param('postId') postId: number,
+    @Body() updatePostDto: UpdatePostDto,
+  ): Promise<Posts> {
+    return this.postsService.updatePosts(postId, updatePostDto);
   }
 }
