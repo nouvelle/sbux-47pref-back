@@ -8,7 +8,7 @@ import {
 } from '@nestjs/swagger';
 import { StoreService } from '../services/store.service';
 import { Store } from '../entities/store.entity';
-import { StoreDto } from '../dto/store-dto';
+import { StoreDto, StorePrefDto } from '../dto/store-dto';
 import { ErrorResponse } from '../dto/response-dto';
 
 @ApiTags('store')
@@ -28,13 +28,13 @@ export class StoreController {
   })
   @ApiQuery({
     name: 'limit',
-    description: '応答件数',
+    description: '応答件数（初期値: 10）',
     type: 'number',
     required: false,
   })
   @ApiQuery({
     name: 'offset',
-    description: '応答開始位置',
+    description: '応答開始位置（初期値: 0）',
     type: 'number',
     required: false,
   })
@@ -75,7 +75,7 @@ export class StoreController {
   @ApiResponse({
     status: 200,
     description: '取得に成功した時',
-    type: StoreDto,
+    type: [StorePrefDto],
   })
   @ApiResponse({
     status: 400,
@@ -84,13 +84,13 @@ export class StoreController {
   })
   @ApiQuery({
     name: 'limit',
-    description: '応答件数',
+    description: '応答件数（初期値: 10）',
     type: 'number',
     required: false,
   })
   @ApiQuery({
     name: 'offset',
-    description: '応答開始位置',
+    description: '応答開始位置（初期値: 0）',
     type: 'number',
     required: false,
   })
