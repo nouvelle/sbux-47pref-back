@@ -16,6 +16,7 @@ import { ImageService } from './image/image.service';
 import { TypeOrmConfigService } from './typeorm-config.service';
 // Entities
 import { Pref } from './entities/pref.entity';
+import { Store } from './entities/store.entity';
 
 @Module({
   imports: [
@@ -27,7 +28,7 @@ import { Pref } from './entities/pref.entity';
       imports: [ConfigModule],
       useClass: TypeOrmConfigService,
     }),
-    TypeOrmModule.forFeature([Pref]),
+    TypeOrmModule.forFeature([Pref, Store]),
   ],
   controllers: [
     PrefController,

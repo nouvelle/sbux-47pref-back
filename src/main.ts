@@ -10,6 +10,7 @@ async function bootstrap() {
     .setDescription("This is jimoto frappuccino App's API.")
     .setVersion('1.0')
     .addTag('pref')
+    .addTag('store')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);

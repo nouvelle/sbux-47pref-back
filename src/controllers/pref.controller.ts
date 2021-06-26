@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PrefService } from '../services/pref.service';
 import { Pref } from '../entities/pref.entity';
 import { PrefDto } from '../dto/pref-dto';
@@ -38,6 +38,7 @@ export class PrefController {
     description: 'prefId が 1 ~ 47までの数字でない場合',
     type: ErrorResponse,
   })
+  @ApiParam({ name: 'prefId', description: '都道府県ID', type: 'number' })
   @Get(':prefId')
   async getOnePref(@Param('prefId') prefId: number): Promise<Pref> {
     return this.prefService.getOnePref(prefId);

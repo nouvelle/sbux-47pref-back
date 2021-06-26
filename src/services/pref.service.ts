@@ -9,17 +9,17 @@ export class PrefService {
     @InjectRepository(Pref) private prefRepository: Repository<Pref>,
   ) {}
 
-  getAllPref(): Promise<Pref[]> {
-    return this.prefRepository.find();
+  async getAllPref(): Promise<Pref[]> {
+    return await this.prefRepository.find();
   }
 
-  getOnePref(id: number): Promise<Pref> {
+  async getOnePref(id: number): Promise<Pref> {
     if (id < 1 || 47 < id) {
       throw new HttpException(
         'prefId は 1 ~ 47までの数字を指定してください。',
         HttpStatus.BAD_REQUEST,
       );
     }
-    return this.prefRepository.findOneOrFail(id);
+    return await this.prefRepository.findOneOrFail(id);
   }
 }

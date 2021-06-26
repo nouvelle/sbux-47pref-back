@@ -45,7 +45,7 @@ export class Store {
   transaction_date: Date;
 
   @ManyToOne(() => Pref, (pref) => pref.store)
-  @JoinColumn({ name: 'pref_id'})
+  @JoinColumn({ name: 'pref_id' })
   pref: Pref;
 
   @OneToMany(() => Posts, (posts) => posts.store)
