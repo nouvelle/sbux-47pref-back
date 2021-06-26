@@ -19,6 +19,9 @@ export class Posts {
   @Column('timestamp with time zone')
   created_at: Date;
 
+  @Column('timestamp with time zone')
+  updated_at: Date;
+
   @Column({ type: 'text', nullable: true })
   image: string;
 
