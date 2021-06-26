@@ -3,13 +3,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 // Controller
 import { PrefController } from './controllers/pref.controller';
-import { StoreinfoController } from './controllers/storeinfo.controller';
+import { StoreController } from './controllers/store.controller';
 import { PostsController } from './controllers/posts.controller';
 import { TagsController } from './controllers/tags.controller';
 import { ImageController } from './image/image.controller';
 // Service
 import { PrefService } from './services/pref.service';
-import { StoreinfoService } from './services/storeinfo.service';
+import { StoreService } from './services/store.service';
 import { PostsService } from './services/posts.service';
 import { TagsService } from './services/tags.service';
 import { ImageService } from './image/image.service';
@@ -31,14 +31,14 @@ import { Pref } from './entities/pref.entity';
   ],
   controllers: [
     PrefController,
-    StoreinfoController,
+    StoreController,
     PostsController,
     TagsController,
     ImageController,
   ],
   providers: [
     PrefService,
-    StoreinfoService,
+    StoreService,
     PostsService,
     TagsService,
     ImageService,

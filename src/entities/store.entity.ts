@@ -10,7 +10,7 @@ import { Pref } from './pref.entity';
 import { Posts } from './posts.entity';
 
 @Entity()
-export class StoreInfo {
+export class Store {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -44,10 +44,10 @@ export class StoreInfo {
   @Column('timestamp with time zone')
   transaction_date: Date;
 
-  @ManyToOne(() => Pref, (pref) => pref.store_info)
+  @ManyToOne(() => Pref, (pref) => pref.store)
   @JoinColumn({ name: 'pref_id'})
   pref: Pref;
 
-  @OneToMany(() => Posts, (posts) => posts.store_info)
+  @OneToMany(() => Posts, (posts) => posts.store)
   posts: Posts[];
 }

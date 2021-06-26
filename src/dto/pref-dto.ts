@@ -6,4 +6,22 @@ export class PrefDto {
 
   @ApiProperty()
   name: string;
+
+  @ApiProperty()
+  nameJp: string;
+
+  @ApiProperty()
+  lat: number;
+
+  @ApiProperty()
+  lng: number;
+
+  @ApiProperty()
+  zoom: number;
+
+  @ApiProperty()
+  clusterZoom: number;
+
+  @ApiProperty()
+  drink: string;
 }

@@ -1,5 +1,5 @@
 import { Entity, PrimaryColumn, Column, OneToMany } from 'typeorm';
-import { StoreInfo } from './storeInfo.entity';
+import { Store } from './store.entity';
 import { Posts } from './posts.entity';
 
 // 都道府県テーブル
@@ -11,29 +11,26 @@ export class Pref {
   @Column('text')
   name: string;
 
-  @Column({
-    type: 'text',
-    nullable: true,
-  })
+  @Column('text')
   nameJP: string;
 
-  @Column({ type: 'decimal', nullable: true })
+  @Column('decimal')
   lat: number;
 
-  @Column({ type: 'decimal', nullable: true })
+  @Column('decimal')
   lng: number;
 
-  @Column({ type: 'decimal', nullable: true })
+  @Column('decimal')
   zoom: number;
 
-  @Column({ type: 'decimal', nullable: true })
+  @Column('decimal')
   clusterZoom: number;
 
   @Column('text')
   drink: string;
 
-  @OneToMany(() => StoreInfo, (storeInfo) => storeInfo.pref)
-  store_info: StoreInfo[];
+  @OneToMany(() => Store, (store) => store.pref)
+  store: Store[];
 
   @OneToMany(() => Posts, (posts) => posts.pref)
   posts: Posts[];
