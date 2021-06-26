@@ -1,4 +1,4 @@
-import { Injectable, Post } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Post } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Posts } from '../entities/posts.entity';
 import { Pref } from '../entities/pref.entity';
@@ -73,5 +73,21 @@ export class PostsService {
 
     // データを保存
     return this.postsRepository.save(updatePost);
+  }
+
+  async deletePosts(postId: number): Promise<Posts> {
+    // posts テーブルから、IDが合致したデータを検索
+    const deletePost = await this.postsRepository.findOne(postId);
+
+    // 投稿がある場合
+    if (deletePost) {
+      // 店舗情報から所在地の都道府県を抽出
+      return await this.postsRepository.remove(deletePost);
+    } else {
+      throw new HttpException(
+        '指定された投稿データIDは存在しません',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 }

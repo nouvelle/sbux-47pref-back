@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import {
   ApiOperation,
   ApiParam,
@@ -79,7 +79,7 @@ export class PostsController {
   // データ修正API
   @ApiOperation({
     summary: 'データ修正API',
-    description: '投稿ずみのデータを修正する',
+    description: '定された postId のデータを修正する',
   })
   @ApiResponse({
     status: 201,
@@ -88,7 +88,7 @@ export class PostsController {
   })
   @ApiResponse({
     status: 400,
-    description: '必須項目がクライアントから送られてきていない時',
+    description: '必須項目がクライアントから送られてきていない場合',
     type: ErrorResponse,
   })
   @ApiResponse({
@@ -103,5 +103,31 @@ export class PostsController {
     @Body() updatePostDto: UpdatePostDto,
   ): Promise<Posts> {
     return this.postsService.updatePosts(postId, updatePostDto);
+  }
+
+  // データ削除API
+  @ApiOperation({
+    summary: 'データ削除API',
+    description: '指定された postId のデータを削除する',
+  })
+  @ApiResponse({
+    status: 200,
+    description: '削除に成功した時',
+    type: CreatPostResponse,
+  })
+  @ApiResponse({
+    status: 400,
+    description: '指定された投稿データIDが存在しない場合',
+    type: ErrorResponse,
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'サーバ側でサービスが提供できない場合',
+    type: ErrorResponse,
+  })
+  @ApiParam({ name: 'postId', description: '投稿データID', type: 'number' })
+  @Delete(':postId')
+  async delete(@Param('postId') postId: number): Promise<Posts> {
+    return this.postsService.deletePosts(postId);
   }
 }
