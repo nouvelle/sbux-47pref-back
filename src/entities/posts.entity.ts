@@ -17,7 +17,7 @@ export class Posts {
   id: number;
 
   @Column('timestamp with time zone')
-  visited_date: Date;
+  created_at: Date;
 
   @Column({ type: 'text', nullable: true })
   image: string;
