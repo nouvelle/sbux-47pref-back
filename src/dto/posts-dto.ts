@@ -60,7 +60,7 @@ export class CreatePostDto {
   @IsNumber()
   @IsOptional()
   @ApiProperty()
-  store_id?: number;
+  pref_id?: number;
 }
 
 export class UpdatePostDto {
@@ -96,5 +96,5 @@ export class UpdatePostDto {
   @IsNumber()
   @IsOptional()
   @ApiProperty()
-  store_id?: number;
+  pref_id?: number;
 }

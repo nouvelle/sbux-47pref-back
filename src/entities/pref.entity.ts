@@ -1,5 +1,4 @@
 import { Entity, PrimaryColumn, Column, OneToMany } from 'typeorm';
-import { Store } from './store.entity';
 import { Posts } from './posts.entity';
 
 // 都道府県テーブル
@@ -28,9 +27,6 @@ export class Pref {
 
   @Column('text')
   drink: string;
-
-  @OneToMany(() => Store, (store) => store.pref)
-  store: Store[];
 
   @OneToMany(() => Posts, (posts) => posts.pref)
   posts: Posts[];

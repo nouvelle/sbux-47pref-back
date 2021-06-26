@@ -5,5 +5,5 @@ export interface PostsInterface {
   secretkey?: string;
   snshandle?: string;
   tag?: string;
-  store_id?: number;
+  pref_id?: number;
 }

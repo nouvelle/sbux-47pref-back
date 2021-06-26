@@ -9,7 +9,6 @@ import {
 } from 'typeorm';
 import { Pref } from './pref.entity';
 import { Tags } from './tags.entity';
-import { Store } from './store.entity';
 
 @Entity()
 export class Posts {
@@ -43,10 +42,6 @@ export class Posts {
   @ManyToOne(() => Pref, (pref) => pref.posts)
   @JoinColumn({ name: 'pref_id' })
   pref: Pref;
-
-  @ManyToOne(() => Store, (store) => store.posts)
-  @JoinColumn({ name: 'store_id' })
-  store: Store;
 
   @ManyToMany(() => Tags)
   @JoinTable({ name: 'posts_tags' })

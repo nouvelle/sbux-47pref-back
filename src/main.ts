@@ -11,7 +11,6 @@ async function bootstrap() {
     .setDescription("This is jimoto frappuccino App's API.")
     .setVersion('1.0')
     .addTag('pref')
-    .addTag('store')
     .addTag('posts')
     .addTag('image')
     .build();
@@ -20,6 +19,6 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
-  await app.listen(3001);
+  await app.listen(5001);
 }
 bootstrap();

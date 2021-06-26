@@ -2,7 +2,6 @@ import { HttpException, HttpStatus, Injectable, Post } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Posts } from '../entities/posts.entity';
 import { Pref } from '../entities/pref.entity';
-import { Store } from '../entities/store.entity';
 import { PostsInterface } from '../interfaces/posts.interfaces';
 import { Repository } from 'typeorm';
 
@@ -11,13 +10,12 @@ export class PostsService {
   constructor(
     @InjectRepository(Posts) private postsRepository: Repository<Posts>,
     @InjectRepository(Pref) private prefRepository: Repository<Pref>,
-    @InjectRepository(Store) private storeRepository: Repository<Store>,
   ) {}
 
   async getAllPosts(limit: number, offset: number): Promise<Posts[]> {
     return await this.postsRepository.find({
       order: { id: 'ASC' },
-      relations: ['pref', 'store', 'tags'],
+      relations: ['pref', 'tags'],
       take: limit,
       skip: offset,
     });
@@ -35,16 +33,13 @@ export class PostsService {
     // body で渡されたデータを結合
     Object.assign(addPostData, newPostData);
 
-    // 店舗情報が送られてきた場合
-    if (newPostData.store_id) {
-      // 店舗情報から所在地の都道府県を抽出
-      const prefStore = await this.storeRepository.find({
-        relations: ['pref'],
-        where: { id: newPostData.store_id },
+    //  都道府県情報がある場合
+    if (newPostData.pref_id) {
+      const prefInfo = await this.prefRepository.find({
+        where: { id: newPostData.pref_id },
       });
       // 外部キーになっているカラムの設定
-      addPostData.pref = <any>{ id: prefStore[0].pref.id };
-      addPostData.store = <any>{ id: newPostData.store_id };
+      addPostData.pref = <any>{ id: prefInfo[0].id };
     }
 
     // データを保存
@@ -59,16 +54,13 @@ export class PostsService {
     // body で渡されたデータを結合
     Object.assign(updatePost, { updated_at: new Date() }, post);
 
-    // 店舗情報がある場合
-    if (post.store_id) {
-      // 店舗情報から所在地の都道府県を抽出
-      const prefStore = await this.storeRepository.find({
-        relations: ['pref'],
-        where: { id: post.store_id },
+    //  都道府県情報がある場合
+    if (post.pref_id) {
+      const prefInfo = await this.prefRepository.find({
+        where: { id: post.pref_id },
       });
       // 外部キーになっているカラムの設定
-      updatePost.pref = <any>{ id: prefStore[0].pref.id };
-      updatePost.store = <any>{ id: post.store_id };
+      updatePost.pref = <any>{ id: prefInfo[0].id };
     }
 
     // データを保存

@@ -42,7 +42,4 @@ export class CreatPostResponse {
 
   @ApiProperty()
   pref?: { id: number };
-
-  @ApiProperty()
-  store?: { id: number };
 }
