@@ -11,3 +11,35 @@ export class ErrorResponse {
     this.message = message;
   }
 }
+
+export class CreatPostResponse {
+  @ApiProperty()
+  id: number;
+
+  @ApiProperty()
+  created_at: Date;
+
+  @ApiProperty()
+  image: string | null;
+
+  @ApiProperty()
+  comments: string | null;
+
+  @ApiProperty()
+  author: string;
+
+  @ApiProperty()
+  secretkey: string | null;
+
+  @ApiProperty()
+  snshandle: string | null;
+
+  @ApiProperty()
+  tag: string | null;
+
+  @ApiProperty()
+  pref?: { id: number };
+
+  @ApiProperty()
+  store?: { id: number };
+}
