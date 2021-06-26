@@ -1,6 +1,10 @@
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { Posts } from './entities/posts.entity';
+import { Pref } from './entities/pref.entity';
+import { StoreInfo } from './entities/storeInfo.entity';
+import { Tags } from './entities/tags.entity';
 
 @Injectable()
 export class TypeOrmConfigService implements TypeOrmOptionsFactory {
@@ -15,6 +19,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       database: configService.get('DB_DATABASE'),
       synchronize: false,
       logging: configService.get('DB_LOGGING'),
+      entities: [Posts, Pref, StoreInfo, Tags],
     };
   }
 }

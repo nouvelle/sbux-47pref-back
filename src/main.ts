@@ -9,8 +9,7 @@ async function bootstrap() {
     .setTitle('My personal API :)')
     .setDescription('Nest practice のAPIのSwaggerです')
     .setVersion('1.0')
-    .addTag('users')
-    .addTag('cats')
+    .addTag('pref')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
