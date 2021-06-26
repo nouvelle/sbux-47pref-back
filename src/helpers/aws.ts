@@ -1,14 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-// import AWS from 'aws-sdk';
-const AWS = require('aws-sdk');
+import { S3 } from 'aws-sdk';
 
 @Injectable()
 export class Aws {
   s3: any;
   bucketName: string;
   constructor(private readonly config: ConfigService) {
-    this.s3 = new AWS.S3({
+    this.s3 = new S3({
       accessKeyId: this.config.get('AWS_ACCESS_KEY'),
       secretAccessKey: this.config.get('AWS_SECRET_KEY'),
     });
