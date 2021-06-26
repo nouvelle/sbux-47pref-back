@@ -8,7 +8,7 @@ import {
 } from '@nestjs/swagger';
 import { StoreService } from '../services/store.service';
 import { Store } from '../entities/store.entity';
-import { StoreDto, StorePrefDto } from '../dto/store-dto';
+import { StoreDto, StorePrefPostDto } from '../dto/store-dto';
 import { ErrorResponse } from '../dto/response-dto';
 
 @ApiTags('store')
@@ -25,6 +25,11 @@ export class StoreController {
     status: 200,
     description: '取得に成功した時',
     type: [StoreDto],
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'サーバ側でサービスが提供できない場合',
+    type: ErrorResponse,
   })
   @ApiQuery({
     name: 'limit',
@@ -61,6 +66,11 @@ export class StoreController {
     description: '指定したIDの店舗が存在しない場合',
     type: ErrorResponse,
   })
+  @ApiResponse({
+    status: 500,
+    description: 'サーバ側でサービスが提供できない場合',
+    type: ErrorResponse,
+  })
   @ApiParam({ name: 'storeId', description: '店舗ID', type: 'number' })
   @Get(':storeId')
   async getOnePref(@Param('storeId') storeId: number): Promise<Store> {
@@ -75,11 +85,16 @@ export class StoreController {
   @ApiResponse({
     status: 200,
     description: '取得に成功した時',
-    type: [StorePrefDto],
+    type: [StorePrefPostDto],
   })
   @ApiResponse({
     status: 400,
     description: '指定した都道府県IDの店舗が存在しない場合',
+    type: ErrorResponse,
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'サーバ側でサービスが提供できない場合',
     type: ErrorResponse,
   })
   @ApiQuery({

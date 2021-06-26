@@ -19,6 +19,11 @@ export class PrefController {
     description: '取得に成功した時',
     type: [PrefDto],
   })
+  @ApiResponse({
+    status: 500,
+    description: 'サーバ側でサービスが提供できない場合',
+    type: ErrorResponse,
+  })
   @Get()
   async getAllPref(): Promise<Pref[]> {
     return this.prefService.getAllPref();
@@ -36,6 +41,11 @@ export class PrefController {
   @ApiResponse({
     status: 400,
     description: 'prefId が 1 ~ 47までの数字でない場合',
+    type: ErrorResponse,
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'サーバ側でサービスが提供できない場合',
     type: ErrorResponse,
   })
   @ApiParam({ name: 'prefId', description: '都道府県ID', type: 'number' })
