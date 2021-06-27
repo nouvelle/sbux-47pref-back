@@ -19,7 +19,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors({
-    origin: 'https://sbux-47pref-stg.herokuapp.com',
+    origin: 'https://sbux-47pref.surge.sh',
     allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept',
   });
 
