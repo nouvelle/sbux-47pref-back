@@ -1,5 +1,7 @@
 import {
+  Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -15,6 +17,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { ImageService } from '../services/image.service';
+import { DeleteImageDto } from '../dto/image-dto';
 import {
   ErrorResponse,
   GetAllImagesResponse,
@@ -101,5 +104,25 @@ export class ImageController {
     @UploadedFile() file: Express.Multer.File,
   ): Promise<any> {
     return await this.imageService.uploadFile(imgData, file);
+  }
+
+  // 画像削除API
+  @ApiOperation({
+    summary: '画像削除API',
+    description: 'S3から指定した画像を削除する',
+  })
+  @ApiResponse({
+    status: 200,
+    description: '削除に成功した時',
+    type: '{}',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'サーバ側でサービスが提供できない場合',
+    type: ErrorResponse,
+  })
+  @Delete()
+  async deleteFile(@Body() deleteImageDto: DeleteImageDto): Promise<any> {
+    return await this.imageService.deleteFile(deleteImageDto);
   }
 }

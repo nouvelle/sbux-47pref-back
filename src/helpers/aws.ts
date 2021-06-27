@@ -58,4 +58,20 @@ export class Aws {
       });
     });
   }
+
+  /**
+   * S3: 画像削除
+   */
+  async deleteFile(imgData: string): Promise<any> {
+    const params = {
+      Bucket: this.bucketName,
+      Key: `${imgData['imgData']}`,
+    };
+    return new Promise((resolve, reject) => {
+      this.s3.deleteObject(params, (err, data) => {
+        if (err) return reject(err);
+        resolve(data);
+      });
+    });
+  }
 }

@@ -18,4 +18,8 @@ export class ImageService {
   async uploadFile(imgData, file): Promise<any> {
     return this.aws.uploadFile(imgData, file);
   }
+
+  async deleteFile(imgData): Promise<any> {
+    return this.aws.deleteFile(imgData);
+  }
 }
