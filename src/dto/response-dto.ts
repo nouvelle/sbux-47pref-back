@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { PrefDto } from './pref-dto';
 
 export class ErrorResponse {
   @ApiProperty()
@@ -10,6 +11,38 @@ export class ErrorResponse {
     this.statusCode = statusCode;
     this.message = message;
   }
+}
+
+export class GetPostResponse {
+  @ApiProperty()
+  id: number;
+
+  @ApiProperty()
+  created_at: Date;
+
+  @ApiProperty()
+  updated_at: Date;
+
+  @ApiProperty()
+  image: string;
+
+  @ApiProperty()
+  comments: string | null;
+
+  @ApiProperty()
+  author: string;
+
+  @ApiProperty()
+  secretkey: string | null;
+
+  @ApiProperty()
+  snshandle: string | null;
+
+  @ApiProperty()
+  tag: string | null;
+
+  @ApiProperty()
+  pref: PrefDto;
 }
 
 export class CreatPostResponse {

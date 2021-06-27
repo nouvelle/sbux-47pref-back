@@ -17,8 +17,12 @@ import {
 } from '@nestjs/swagger';
 import { PostsService } from '../services/posts.service';
 import { Posts } from '../entities/posts.entity';
-import { PostsDto, CreatePostDto, UpdatePostDto } from '../dto/posts-dto';
-import { ErrorResponse, CreatPostResponse } from '../dto/response-dto';
+import { CreatePostDto, UpdatePostDto } from '../dto/posts-dto';
+import {
+  ErrorResponse,
+  CreatPostResponse,
+  GetPostResponse,
+} from '../dto/response-dto';
 
 @ApiTags('posts')
 @Controller('posts')
@@ -33,7 +37,7 @@ export class PostsController {
   @ApiResponse({
     status: 200,
     description: '取得に成功した時',
-    type: [PostsDto],
+    type: [GetPostResponse],
   })
   @ApiResponse({
     status: 500,
@@ -53,11 +57,37 @@ export class PostsController {
     required: false,
   })
   @Get()
-  async getAllPref(
+  async getAllPosts(
     @Query('limit') limit = 10,
     @Query('offset') offset = 0,
   ): Promise<Posts[]> {
     return this.postsService.getAllPosts(limit, offset);
+  }
+
+  // 投稿データ取得API
+  @ApiOperation({
+    summary: '投稿データ取得API',
+    description: '指定した投稿IDのデータを応答する',
+  })
+  @ApiResponse({
+    status: 200,
+    description: '取得に成功した時',
+    type: GetPostResponse,
+  })
+  @ApiResponse({
+    status: 400,
+    description: '指定された投稿データIDが存在しない場合',
+    type: ErrorResponse,
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'サーバ側でサービスが提供できない場合',
+    type: ErrorResponse,
+  })
+  @ApiParam({ name: 'postId', description: '投稿ID', type: 'number' })
+  @Get(':postId')
+  async getOnePost(@Param('postId') postId: number): Promise<Posts> {
+    return this.postsService.getOnePost(postId);
   }
 
   // データ作成API

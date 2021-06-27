@@ -1,32 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNumber, IsOptional, IsString } from 'class-validator';
 
-export class PostsDto {
-  @ApiProperty()
-  id: number;
-
-  @ApiProperty()
-  visited_date: Date;
-
-  @ApiProperty()
-  image: string;
-
-  @ApiProperty()
-  comments: string;
-
-  @ApiProperty()
-  author: string;
-
-  @ApiProperty()
-  secretkey: string;
-
-  @ApiProperty()
-  snshandle: string;
-
-  @ApiProperty()
-  tag: string;
-}
-
 export class CreatePostDto {
   @IsString()
   @IsOptional()

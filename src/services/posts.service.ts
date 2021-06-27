@@ -15,10 +15,26 @@ export class PostsService {
   async getAllPosts(limit: number, offset: number): Promise<Posts[]> {
     return await this.postsRepository.find({
       order: { id: 'DESC' },
-      relations: ['pref', 'tags'],
+      relations: ['pref'],
       take: limit,
       skip: offset,
     });
+  }
+
+  async getOnePost(id: number): Promise<Posts> {
+    const post = await this.postsRepository.findOne(id, {
+      relations: ['pref'],
+    });
+
+    // 投稿がある場合
+    if (post) {
+      return post;
+    } else {
+      throw new HttpException(
+        '指定された投稿データIDは存在しません',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
   async createPosts(post: PostsInterface): Promise<Posts> {
