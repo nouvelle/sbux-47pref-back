@@ -18,6 +18,10 @@ async function bootstrap() {
   SwaggerModule.setup('docs', app, document);
 
   app.useGlobalPipes(new ValidationPipe());
+  app.enableCors({
+    origin: 'https://sbux-47pref-stg.herokuapp.com',
+    allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept',
+  });
 
   await app.listen(process.env.PORT || 5001);
 }
