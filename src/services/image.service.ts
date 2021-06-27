@@ -9,7 +9,13 @@ export class ImageService {
     return this.aws.getImageList();
   }
 
-  async uploadFile(filename, filetype, data): Promise<any> {
-    return this.aws.uploadFile(filename, filetype, data);
+  async getOneImage(filename): Promise<any> {
+    return this.aws.getOneImage(filename).then((data) => {
+      return { data };
+    });
+  }
+
+  async uploadFile(imgData, file): Promise<any> {
+    return this.aws.uploadFile(imgData, file);
   }
 }

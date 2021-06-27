@@ -43,3 +43,48 @@ export class CreatPostResponse {
   @ApiProperty()
   pref?: { id: number };
 }
+
+export class GetAllImagesResponse {
+  @ApiProperty()
+  Key: string;
+
+  @ApiProperty()
+  LastModified: string;
+
+  @ApiProperty()
+  ETag: string;
+
+  @ApiProperty()
+  Size: number;
+
+  @ApiProperty()
+  StorageClass: string;
+
+  @ApiProperty()
+  Owner: {
+    DisplayName: string;
+    ID: string;
+  };
+}
+
+export class GetImageResponse {
+  @ApiProperty()
+  data: string;
+}
+
+export class UploadImageResponse {
+  @ApiProperty()
+  ETag: string;
+
+  @ApiProperty()
+  Location: string;
+
+  @ApiProperty()
+  key: string;
+
+  @ApiProperty()
+  Key: string;
+
+  @ApiProperty()
+  Bucket: string;
+}
