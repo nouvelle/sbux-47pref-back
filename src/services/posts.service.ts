@@ -14,7 +14,7 @@ export class PostsService {
 
   async getAllPosts(limit: number, offset: number): Promise<Posts[]> {
     return await this.postsRepository.find({
-      order: { id: 'ASC' },
+      order: { id: 'DESC' },
       relations: ['pref', 'tags'],
       take: limit,
       skip: offset,
