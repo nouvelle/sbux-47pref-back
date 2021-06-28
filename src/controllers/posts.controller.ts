@@ -21,6 +21,7 @@ import { CreatePostDto, UpdatePostDto } from '../dto/posts-dto';
 import {
   ErrorResponse,
   CreatPostResponse,
+  GetAllPostResponse,
   GetPostResponse,
 } from '../dto/response-dto';
 
@@ -37,7 +38,7 @@ export class PostsController {
   @ApiResponse({
     status: 200,
     description: '取得に成功した時',
-    type: [GetPostResponse],
+    type: [GetAllPostResponse],
   })
   @ApiResponse({
     status: 500,
@@ -46,7 +47,7 @@ export class PostsController {
   })
   @ApiQuery({
     name: 'limit',
-    description: '応答件数（初期値: 10）',
+    description: '応答件数（初期値: 9）',
     type: 'number',
     required: false,
   })
@@ -58,7 +59,7 @@ export class PostsController {
   })
   @Get()
   async getAllPosts(
-    @Query('limit') limit = 10,
+    @Query('limit') limit = 9,
     @Query('offset') offset = 0,
   ): Promise<Posts[]> {
     return this.postsService.getAllPosts(limit, offset);

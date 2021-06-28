@@ -13,6 +13,17 @@ export class ErrorResponse {
   }
 }
 
+export class GetAllPostResponse {
+  @ApiProperty()
+  data: GetPostResponse[]; // TODO: ここなんか変
+
+  @ApiProperty()
+  total: number;
+
+  @ApiProperty()
+  has_more: boolean;
+}
+
 export class GetPostResponse {
   @ApiProperty()
   id: number;

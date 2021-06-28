@@ -12,13 +12,20 @@ export class PostsService {
     @InjectRepository(Pref) private prefRepository: Repository<Pref>,
   ) {}
 
-  async getAllPosts(limit: number, offset: number): Promise<Posts[]> {
-    return await this.postsRepository.find({
+  async getAllPosts(limit: number, offset: number): Promise<any> {
+    const data = await this.postsRepository.findAndCount({
       order: { id: 'DESC' },
       relations: ['pref'],
       take: limit,
       skip: offset,
     });
+    const [result, total] = data;
+    const hasMore = total - (Number(offset) + result.length) > 0;
+    return {
+      data: [...result],
+      total: total,
+      has_more: hasMore,
+    };
   }
 
   async getOnePost(id: number): Promise<Posts> {
