@@ -24,4 +24,7 @@ export class PrefDto {
 
   @ApiProperty()
   drink: string;
+
+  @ApiProperty()
+  is_post: boolean;
 }

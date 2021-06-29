@@ -28,6 +28,9 @@ export class Pref {
   @Column('text')
   drink: string;
 
+  @Column({ type: 'boolean', nullable: true, default: false })
+  is_post: boolean;
+
   @OneToMany(() => Posts, (posts) => posts.pref)
   posts: Posts[];
 }
