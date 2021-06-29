@@ -6,7 +6,7 @@ export class ImageService {
   constructor(private readonly aws: Aws) {}
 
   async getImageList(): Promise<any> {
-    return this.aws.getImageList().catch((err) => {
+    return await this.aws.getImageList().catch((err) => {
       if (err.code && err.statusCode) {
         throw new HttpException(err.code, err.statusCode);
       } else {
@@ -16,7 +16,7 @@ export class ImageService {
   }
 
   async getOneImage(filename): Promise<any> {
-    return this.aws
+    return await this.aws
       .getOneImage(filename)
       .then((data) => {
         return { data };
@@ -31,7 +31,7 @@ export class ImageService {
   }
 
   async uploadFile(imgData, file): Promise<any> {
-    return this.aws.uploadFile(imgData, file).catch((err) => {
+    return await this.aws.uploadFile(imgData, file).catch((err) => {
       if (err.code && err.statusCode) {
         throw new HttpException(err.code, err.statusCode);
       } else {
@@ -41,7 +41,7 @@ export class ImageService {
   }
 
   async deleteFile(imgData): Promise<any> {
-    return this.aws.deleteFile(imgData).catch((err) => {
+    return await this.aws.deleteFile(imgData).catch((err) => {
       if (err.code && err.statusCode) {
         throw new HttpException(err.code, err.statusCode);
       } else {
