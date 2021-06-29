@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable, Post } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Posts } from '../entities/posts.entity';
 import { Pref } from '../entities/pref.entity';
+import { PrefService } from './pref.service';
 import { PostsInterface } from '../interfaces/posts.interfaces';
 import { Repository } from 'typeorm';
 
@@ -10,6 +11,7 @@ export class PostsService {
   constructor(
     @InjectRepository(Posts) private postsRepository: Repository<Posts>,
     @InjectRepository(Pref) private prefRepository: Repository<Pref>,
+    private readonly prefService: PrefService,
   ) {}
 
   async getAllPosts(limit: number, offset: number): Promise<any> {
@@ -63,6 +65,8 @@ export class PostsService {
       });
       // 外部キーになっているカラムの設定
       addPostData.pref = <any>{ id: prefInfo[0].id };
+      // pref テーブルの is_post をtrue にする
+      this.prefService.updateIsPost(prefInfo[0].id, true);
     }
 
     // データを保存
