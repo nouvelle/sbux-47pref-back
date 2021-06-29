@@ -8,7 +8,7 @@ export class PrefDto {
   name: string;
 
   @ApiProperty()
-  nameJp: string;
+  nameJP: string;
 
   @ApiProperty()
   lat: number;

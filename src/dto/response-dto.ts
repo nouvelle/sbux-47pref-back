@@ -13,6 +13,38 @@ export class ErrorResponse {
   }
 }
 
+export class GetPrefResponse {
+  @ApiProperty()
+  id: number;
+
+  @ApiProperty()
+  name: string;
+
+  @ApiProperty()
+  nameJP: string;
+
+  @ApiProperty()
+  lat: number;
+
+  @ApiProperty()
+  lng: number;
+
+  @ApiProperty()
+  zoom: number;
+
+  @ApiProperty()
+  clusterZoom: number;
+
+  @ApiProperty()
+  drink: string;
+
+  @ApiProperty()
+  is_post: boolean;
+
+  @ApiProperty()
+  posts: GetPostResponse[];
+}
+
 export class GetAllPostResponse {
   @ApiProperty()
   data: GetPostResponse[]; // TODO: ここなんか変

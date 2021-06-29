@@ -96,12 +96,27 @@ export class PostsService {
 
   async deletePosts(postId: number): Promise<Posts> {
     // posts テーブルから、IDが合致したデータを検索
-    const deletePost = await this.postsRepository.findOne(postId);
+    const deletePost = await this.postsRepository.findOne(postId, {
+      relations: ['pref'],
+    });
 
     // 投稿がある場合
     if (deletePost) {
-      // 店舗情報から所在地の都道府県を抽出
-      return await this.postsRepository.remove(deletePost);
+      // 投稿を削除
+      await this.postsRepository.remove(deletePost);
+
+      //  対象の都道府県データを取得
+      const prefData = await this.prefService.getOnePref(deletePost.pref.id);
+
+      // postデータがあるかどうかチェック、なければ is_post を false にする
+      if (prefData.posts.length === 0) {
+        const prefInfo = await this.prefRepository.find({
+          where: { id: deletePost.pref.id },
+        });
+        // pref テーブルの is_post を false にする
+        await this.prefService.updateIsPost(prefInfo[0].id, false);
+      }
+      return deletePost;
     } else {
       throw new HttpException(
         '指定された投稿データIDは存在しません',

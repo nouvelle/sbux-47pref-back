@@ -1,9 +1,9 @@
 export interface PostsInterface {
   image?: string;
-  comments?: string;
+  comments?: string | null;
   author: string;
-  secretkey?: string;
-  snshandle?: string;
-  tag?: string;
+  secretkey?: string | null;
+  snshandle?: string | null;
+  tag?: string | null;
   pref_id?: number;
 }

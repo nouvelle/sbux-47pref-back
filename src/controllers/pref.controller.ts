@@ -3,7 +3,7 @@ import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PrefService } from '../services/pref.service';
 import { Pref } from '../entities/pref.entity';
 import { PrefDto } from '../dto/pref-dto';
-import { ErrorResponse } from '../dto/response-dto';
+import { ErrorResponse, GetPrefResponse } from '../dto/response-dto';
 
 @ApiTags('pref')
 @Controller('pref')
@@ -50,7 +50,7 @@ export class PrefController {
   })
   @ApiParam({ name: 'prefId', description: '都道府県ID', type: 'number' })
   @Get(':prefId')
-  async getOnePref(@Param('prefId') prefId: number): Promise<Pref> {
+  async getOnePref(@Param('prefId') prefId: number): Promise<GetPrefResponse> {
     return this.prefService.getOnePref(prefId);
   }
 }
