@@ -91,6 +91,48 @@ export class PostsController {
     return this.postsService.getOnePost(postId);
   }
 
+  // 指定した都道府県IDの投稿データ取得API
+  @ApiOperation({
+    summary: '指定した都道府県IDの投稿データ取得API',
+    description: '指定した都道府県IDの投稿データを応答する',
+  })
+  @ApiResponse({
+    status: 200,
+    description: '取得に成功した時',
+    // type: GetPostResponse,
+  })
+  @ApiResponse({
+    status: 400,
+    description: '指定された都道府県データIDが存在しない場合',
+    type: ErrorResponse,
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'サーバ側でサービスが提供できない場合',
+    type: ErrorResponse,
+  })
+  @ApiQuery({
+    name: 'limit',
+    description: '応答件数（初期値: 9）',
+    type: 'number',
+    required: false,
+  })
+  @ApiQuery({
+    name: 'offset',
+    description: '応答開始位置（初期値: 0）',
+    type: 'number',
+    required: false,
+  })
+  @ApiParam({ name: 'prefId', description: '都道府県ID', type: 'number' })
+  @Get('pref/:prefId')
+  async getPrefPostList(
+    @Param('prefId') prefId: number,
+    @Query('limit') limit = 9,
+    @Query('offset') offset = 0,
+  ): Promise<Posts> {
+    return this.postsService.getPrefPostList(prefId, limit, offset);
+  }
+
   // データ作成API
   @ApiOperation({
     summary: 'データ作成API',

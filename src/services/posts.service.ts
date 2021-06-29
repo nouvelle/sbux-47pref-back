@@ -46,6 +46,34 @@ export class PostsService {
     }
   }
 
+  async getPrefPostList(
+    prefId: number,
+    limit: number,
+    offset: number,
+  ): Promise<any> {
+    if (prefId < 1 || 47 < prefId) {
+      throw new HttpException(
+        'prefId は 1 ~ 47までの数字を指定してください。',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    const data = await this.postsRepository.findAndCount({
+      relations: ['pref'],
+      where: {
+        pref: { id: prefId },
+      },
+      take: limit,
+      skip: offset,
+    });
+    const [result, total] = data;
+    const hasMore = total - (Number(offset) + result.length) > 0;
+    return {
+      data: [...result],
+      total: total,
+      has_more: hasMore,
+    };
+  }
+
   async createPosts(post: PostsInterface): Promise<Posts> {
     const newPostData = {
       ...post,
