@@ -53,4 +53,24 @@ export class PrefController {
   async getOnePref(@Param('prefId') prefId: number): Promise<GetPrefResponse> {
     return this.prefService.getOnePref(prefId);
   }
+
+  // 各都道府県の最新の投稿のみを含んだデータ取得API
+  @ApiOperation({
+    summary: '各都道府県の最新の投稿のみを含んだデータ取得API',
+    description: '各都道府県の最新の投稿のみを含んだデータを取得する',
+  })
+  @ApiResponse({
+    status: 200,
+    description: '取得に成功した時',
+    // type: GetImageResponse,
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'サーバ側でサービスが提供できない場合',
+    type: ErrorResponse,
+  })
+  @Get('post/latest')
+  async getPrefLatestImageList(): Promise<any> {
+    return await this.prefService.getPrefLatestPostList();
+  }
 }
