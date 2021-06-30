@@ -62,6 +62,7 @@ export class PostsService {
       where: {
         pref: { id: prefId },
       },
+      order: { id: 'DESC' },
       take: limit,
       skip: offset,
     });
