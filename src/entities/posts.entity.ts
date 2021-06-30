@@ -6,9 +6,11 @@ import {
   JoinColumn,
   ManyToMany,
   JoinTable,
+  OneToOne,
 } from 'typeorm';
 import { Pref } from './pref.entity';
 import { Tags } from './tags.entity';
+import { Secretkey } from './secretkey.entity';
 
 @Entity()
 export class Posts {
@@ -31,9 +33,6 @@ export class Posts {
   author: string;
 
   @Column({ type: 'text', nullable: true })
-  secretkey: string;
-
-  @Column({ type: 'text', nullable: true })
   snshandle: string;
 
   @Column({ type: 'text', nullable: true })
@@ -46,4 +45,8 @@ export class Posts {
   @ManyToMany(() => Tags)
   @JoinTable({ name: 'posts_tags' })
   tags: Tags[];
+
+  @OneToOne(() => Secretkey, (secretkey) => secretkey.posts)
+  @JoinColumn({ name: 'secretkey_id' })
+  secretkey: Secretkey;
 }

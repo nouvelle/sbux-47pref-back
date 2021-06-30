@@ -7,3 +7,7 @@ export interface PostsInterface {
   tag?: string | null;
   pref_id?: number;
 }
+
+export interface SecretkeyInterface {
+  key: string;
+}

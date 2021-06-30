@@ -55,11 +55,6 @@ export class UpdatePostDto {
   @IsString()
   @IsOptional()
   @ApiProperty()
-  secretkey: string;
-
-  @IsString()
-  @IsOptional()
-  @ApiProperty()
   snshandle: string;
 
   @IsString()
@@ -71,4 +66,10 @@ export class UpdatePostDto {
   @IsOptional()
   @ApiProperty()
   pref_id?: number;
+}
+
+export class CheckSecretkeyDto {
+  @IsString()
+  @ApiProperty()
+  key: string;
 }

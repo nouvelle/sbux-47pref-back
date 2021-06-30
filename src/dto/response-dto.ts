@@ -76,9 +76,6 @@ export class GetPostResponse {
   author: string;
 
   @ApiProperty()
-  secretkey: string | null;
-
-  @ApiProperty()
   snshandle: string | null;
 
   @ApiProperty()
@@ -108,9 +105,6 @@ export class CreatPostResponse {
   author: string;
 
   @ApiProperty()
-  secretkey: string | null;
-
-  @ApiProperty()
   snshandle: string | null;
 
   @ApiProperty()
@@ -118,6 +112,9 @@ export class CreatPostResponse {
 
   @ApiProperty()
   pref?: { id: number };
+
+  @ApiProperty()
+  secretkey?: { id: number };
 }
 
 export class GetAllImagesResponse {

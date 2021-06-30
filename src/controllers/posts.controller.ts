@@ -17,7 +17,11 @@ import {
 } from '@nestjs/swagger';
 import { PostsService } from '../services/posts.service';
 import { Posts } from '../entities/posts.entity';
-import { CreatePostDto, UpdatePostDto } from '../dto/posts-dto';
+import {
+  CreatePostDto,
+  UpdatePostDto,
+  CheckSecretkeyDto,
+} from '../dto/posts-dto';
 import {
   ErrorResponse,
   CreatPostResponse,
@@ -131,6 +135,35 @@ export class PostsController {
     @Query('offset') offset = 0,
   ): Promise<Posts> {
     return this.postsService.getPrefPostList(prefId, limit, offset);
+  }
+
+  // 指定した投稿IDのシークレットキー確認用API
+  @ApiOperation({
+    summary: '指定した投稿IDのシークレットキー確認用API',
+    description: '指定した投稿IDのシークレットキーが正しいかどうかをチェックする',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'チェックに成功した時',
+    // type: GetPostResponse,
+  })
+  @ApiResponse({
+    status: 400,
+    description: '指定された投稿IDが存在しない場合, 指定された投稿IDにシークレットキーが存在しない場合',
+    type: ErrorResponse,
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'サーバ側でサービスが提供できない場合',
+    type: ErrorResponse,
+  })
+  @ApiParam({ name: 'postId', description: '投稿ID', type: 'number' })
+  @Post(':postId/keyCheck')
+  async checkSecretkey(
+    @Param('postId') postId: number,
+    @Body() checkSecretkeyDto: CheckSecretkeyDto,
+  ): Promise<Posts> {
+    return this.postsService.checkSecretkey(postId, checkSecretkeyDto);
   }
 
   // データ作成API
