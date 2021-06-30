@@ -137,6 +137,32 @@ export class PostsController {
     return this.postsService.getPrefPostList(prefId, limit, offset);
   }
 
+  // 指定した投稿IDがシークレットキーを持っているかどうか確認するAPI
+  @ApiOperation({
+    summary: '指定した投稿IDがシークレットキーを持っているかどうか確認するAPI',
+    description: '指定した投稿IDがシークレットキーを持っているかどうか確認する',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'チェックに成功した時',
+    // type: GetPostResponse,
+  })
+  @ApiResponse({
+    status: 400,
+    description: '指定された投稿IDが存在しない場合',
+    type: ErrorResponse,
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'サーバ側でサービスが提供できない場合',
+    type: ErrorResponse,
+  })
+  @ApiParam({ name: 'postId', description: '投稿ID', type: 'number' })
+  @Get(':postId/keyCheck')
+  async checkIsSecretkey(@Param('postId') postId: number): Promise<Posts> {
+    return this.postsService.checkIsSecretkey(postId);
+  }
+
   // 指定した投稿IDのシークレットキー確認用API
   @ApiOperation({
     summary: '指定した投稿IDのシークレットキー確認用API',

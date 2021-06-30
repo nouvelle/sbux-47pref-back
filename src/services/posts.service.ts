@@ -80,6 +80,29 @@ export class PostsService {
     };
   }
 
+  async checkIsSecretkey(postId: number): Promise<any> {
+    // 投稿IDから該当の投稿データ(シークレットキーデータ含む)を取得
+    const postData = await this.postsRepository.findOne(postId, {
+      relations: ['secretkey'],
+    });
+
+    // 投稿がある場合
+    if (postData) {
+      if (postData.secretkey) {
+        // シークレットキーがある場合
+        return { result: true };
+      } else {
+        // シークレットキーがない場合
+        return { result: false };
+      }
+    } else {
+      throw new HttpException(
+        '指定された投稿IDは存在しません',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
   async checkSecretkey(
     postId: number,
     secretkey: SecretkeyInterface,
