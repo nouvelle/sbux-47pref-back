@@ -25,8 +25,9 @@ export class PrefService {
       order: { id: 'ASC' },
       relations: ['posts'],
     });
-
     for (const pref of prefData) {
+      // 投稿件数を応答
+      pref['posts_num'] = pref.posts.length;
       // 投稿データがあるもの
       if (pref.posts.length > 0) {
         // 投稿データの中で最新の updated_at を取得
