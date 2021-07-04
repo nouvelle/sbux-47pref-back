@@ -20,6 +20,20 @@ export class PrefService {
   }
 
   // 全ての都道府県の最新の投稿のみを含んだデータを取得
+  async getPrefList(): Promise<any> {
+    const prefData = await this.prefRepository.find({
+      order: { id: 'ASC' },
+      relations: ['posts'],
+    });
+    for (const pref of prefData) {
+      // 投稿件数を応答
+      pref['posts_num'] = pref.posts.length;
+    }
+
+    return prefData;
+  }
+
+  // 全ての都道府県の最新の投稿のみを含んだデータを取得
   async getPrefLatestPostList(): Promise<any> {
     const prefData = await this.prefRepository.find({
       order: { id: 'ASC' },

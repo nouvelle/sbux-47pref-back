@@ -54,10 +54,30 @@ export class PrefController {
     return this.prefService.getOnePref(prefId);
   }
 
-  // 各都道府県の最新の投稿のみを含んだデータ取得API
+  // 各都道府県の投稿件数取得API
   @ApiOperation({
-    summary: '各都道府県の最新の投稿のみを含んだデータ取得API',
-    description: '各都道府県の最新の投稿のみを含んだデータを取得する',
+    summary: '各都道府県の投稿件数取得API',
+    description: '各都道府県の投稿件数を取得する',
+  })
+  @ApiResponse({
+    status: 200,
+    description: '取得に成功した時',
+    // type: GetImageResponse,
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'サーバ側でサービスが提供できない場合',
+    type: ErrorResponse,
+  })
+  @Get('post/num')
+  async getPrefList(): Promise<any> {
+    return await this.prefService.getPrefList();
+  }
+
+  // 各都道府県の最新の投稿のみを含んだデータ取得API(画像付き)
+  @ApiOperation({
+    summary: '各都道府県の最新の投稿のみを含んだデータ取得API(画像付き)',
+    description: '各都道府県の最新の投稿のみを含んだデータを取得する(画像付き)',
   })
   @ApiResponse({
     status: 200,
