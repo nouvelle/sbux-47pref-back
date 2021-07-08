@@ -88,7 +88,7 @@ export class PostsService {
 
     // 投稿がある場合
     if (postData) {
-      if (postData.secretkey) {
+      if (postData.secretkey.key) {
         // シークレットキーがある場合
         return { result: true };
       } else {
@@ -111,11 +111,10 @@ export class PostsService {
     const postData = await this.postsRepository.findOne(postId, {
       relations: ['secretkey'],
     });
-
     // 投稿がある場合
     if (postData) {
       // シークレットキーない場合
-      if (!postData.secretkey) {
+      if (!postData.secretkey.key) {
         throw new HttpException(
           '指定された投稿IDにはシークレットキーが存在しません',
           HttpStatus.BAD_REQUEST,
