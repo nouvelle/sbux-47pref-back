@@ -19,7 +19,8 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors({
-    origin: 'https://sbux-47pref.surge.sh',
+    origin: '*',
+    // origin: 'https://sbux-47pref-dev.surge.sh',
     allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept',
   });
 
