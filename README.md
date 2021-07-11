@@ -44,7 +44,6 @@ AWS_SECRET_KEY_DEV=
 AWS_BUCKET=
 ```
 
-## バックエンドの URL 設定 (`/src/config.js`)
 ## 起動方法
 ```bash
 # 1. このリポジトリを clone する
