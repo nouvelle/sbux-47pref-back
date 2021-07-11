@@ -15,7 +15,9 @@
 
 
 # 開発方法 / Development
-このプロジェクトでは、Postgresデータベースを想定しています。
+## Amazon S3 のバケット作成
+本サービスでは、アップロードされた画像データを Amazon S3 にアップロードしています。  
+S3 にバケットを作成したら、env ファイルに必要な情報を定義してください。  
 
 ## .envファイルの作成(初回のみ)
 envファイルをサンプルからコピーします。  
@@ -28,10 +30,10 @@ $ cp .env.sample .env
 # サーバ起動に関する定義
 PORT=
 
-# Database に関する定義
+# Database に関する定義 (Postgresデータベースを使用します)
 DB_HOST=localhost
 DB_PORT=5432
-DB_DATABASE=sbux_47pref
+DB_DATABASE=
 DB_USERNAME=
 DB_PASSWORD=
 DB_LOGGING=
@@ -60,7 +62,7 @@ $ npm run migrate
 # 5. 初期データを追加する(初回のみ)
 $ npm run seed
 
-# 5. アプリを起動する(開発時)
+# 6. アプリを起動する(開発時)
 $ npm run start:dev
 ```
 
@@ -72,10 +74,6 @@ $ npm run rollback
 # マイグレーションファイルの作成
 $ npm run makeMigration [マイグレーションファイル名]
 ```
-
-## Amazon S3 のバケット作成
-本サービスでは、アップロードされた画像データを Amazon S3 にアップロードしています。
-S3 にバケットを作成したら、env ファイルに必要な情報を定義してください。
 
 ## Swagger
 APIについては、以下のURLで確認してください。
