@@ -12,7 +12,10 @@ async function bootstrap() {
   console.log('HEROKU_STG', configService.get('HEROKU_STG'));
 
   // dev または Heroku staging 環境 のみswagger設定
-  if (configService.get('NODE_ENV') === 'development' || configService.get('HEROKU_STG')) {
+  if (
+    configService.get('NODE_ENV') === 'development' ||
+    configService.get('HEROKU_STG')
+  ) {
     console.log('Hello!');
     const config = new DocumentBuilder()
       .setTitle('SBUX API :)')
@@ -32,7 +35,7 @@ async function bootstrap() {
   } else {
     app.useGlobalPipes(new ValidationPipe());
     app.enableCors({
-      origin: 'https://sbux-47pref-dev.surge.sh',
+      origin: 'https://sbux-47pref.surge.sh',
       allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept',
     });
   }
