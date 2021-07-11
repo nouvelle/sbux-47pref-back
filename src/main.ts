@@ -29,13 +29,13 @@ async function bootstrap() {
       origin: '*',
       allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept',
     });
+  } else {
+    app.useGlobalPipes(new ValidationPipe());
+    app.enableCors({
+      origin: 'https://sbux-47pref-dev.surge.sh',
+      allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept',
+    });
   }
-
-  app.useGlobalPipes(new ValidationPipe());
-  app.enableCors({
-    origin: 'https://sbux-47pref-dev.surge.sh',
-    allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept',
-  });
 
   await app.listen(process.env.PORT || 5001);
 }
