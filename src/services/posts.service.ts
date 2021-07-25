@@ -1,9 +1,12 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ConfigService } from '@nestjs/config';
 import { Posts } from '../entities/posts.entity';
 import { Pref } from '../entities/pref.entity';
 import { PrefService } from './pref.service';
+import { ImageService } from './image.service';
 import { SecretkeyService } from './secretkey.service';
+import { TwitterHelper } from '../helpers/twitter';
 import {
   PostsInterface,
   SecretkeyInterface,
@@ -15,8 +18,11 @@ export class PostsService {
   constructor(
     @InjectRepository(Posts) private postsRepository: Repository<Posts>,
     @InjectRepository(Pref) private prefRepository: Repository<Pref>,
+    private readonly config: ConfigService,
     private readonly prefService: PrefService,
+    private readonly imageService: ImageService,
     private readonly secretkeyService: SecretkeyService,
+    private readonly twitterHelper: TwitterHelper,
   ) {}
 
   async getAllPosts(limit: number, offset: number): Promise<any> {
@@ -171,7 +177,31 @@ export class PostsService {
 
     // データを保存
     const newPost = await this.postsRepository.create(addPostData);
-    return await this.postsRepository.save(newPost);
+    const posted = await this.postsRepository.save(newPost);
+
+    if (
+      this.config.get('NODE_ENV') === 'development' ||
+      this.config.get('HEROKU_STG')
+    ) {
+      console.log('No tweet.');
+    } else {
+      // S3 から対象の画像を取得する
+      const base64 = await this.imageService.getOneImage(post.image);
+      const servideURL = `https://sbux-47pref.surge.sh/posts/${posted.id}`;
+
+      // Tweetする
+      await this.twitterHelper
+        .postImageTweet(post, servideURL, base64.data)
+        .catch((err) => {
+          if (err.code && err.statusCode) {
+            throw new HttpException(err.code, err.statusCode);
+          } else {
+            throw new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR);
+          }
+        });
+    }
+
+    return posted;
   }
 
   // 投稿のアップデート時には、シークレットキーの変更はできないものとする！

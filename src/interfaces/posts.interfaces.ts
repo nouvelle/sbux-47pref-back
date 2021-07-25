@@ -6,6 +6,7 @@ export interface PostsInterface {
   snshandle?: string | null;
   tag?: string | null;
   pref_id?: number;
+  drink?: string;
 }
 
 export interface SecretkeyInterface {

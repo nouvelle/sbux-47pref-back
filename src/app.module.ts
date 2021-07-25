@@ -13,6 +13,7 @@ import { SecretkeyService } from './services/secretkey.service';
 import { TypeOrmConfigService } from './typeorm-config.service';
 // Helper
 import { Aws } from './helpers/aws';
+import { TwitterHelper } from './helpers/twitter';
 // Entities
 import { Pref } from './entities/pref.entity';
 import { Posts } from './entities/posts.entity';
@@ -31,6 +32,13 @@ import { Secretkey } from './entities/secretkey.entity';
     TypeOrmModule.forFeature([Pref, Posts, Secretkey]),
   ],
   controllers: [PrefController, PostsController, ImageController],
-  providers: [PrefService, PostsService, ImageService, SecretkeyService, Aws],
+  providers: [
+    PrefService,
+    PostsService,
+    ImageService,
+    SecretkeyService,
+    Aws,
+    TwitterHelper,
+  ],
 })
 export class AppModule {}

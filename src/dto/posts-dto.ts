@@ -35,6 +35,11 @@ export class CreatePostDto {
   @IsOptional()
   @ApiProperty()
   pref_id?: number;
+
+  @IsString()
+  @IsOptional()
+  @ApiProperty()
+  drink?: string;
 }
 
 export class UpdatePostDto {
