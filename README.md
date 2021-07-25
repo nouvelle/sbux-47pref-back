@@ -19,6 +19,10 @@
 本サービスでは、アップロードされた画像データを Amazon S3 にアップロードしています。  
 S3 にバケットを作成したら、env ファイルに必要な情報を定義してください。  
 
+## Twitter API の設定
+本サービスでは、投稿データを Twitter で自動ポストしています。  
+Twitter の Developer 登録が完了したら、env ファイルに必要な情報を定義してください。  
+
 ## .envファイルの作成(初回のみ)
 envファイルをサンプルからコピーします。  
 値は自分の環境に合わせて適宜設定してください。
@@ -42,6 +46,12 @@ DB_LOGGING=
 AWS_ACCESS_KEY=
 AWS_SECRET_KEY_DEV=
 AWS_BUCKET=
+
+# Twitter に投稿するための Twitter に関する定義
+TWITTER_CONSUMER_KEY=
+TWITTER_CONSUMER_SECRET
+TWITTER_ACCESS_TOKEN_KEY=
+TWITTER_ACCESS_TOKEN_SECRET=
 ```
 
 ## 起動方法
